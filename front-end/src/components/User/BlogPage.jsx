@@ -10,8 +10,12 @@ const BlogPage = () => {
             INSIGHT HUB
             <div>
               {" "}
+              {/* Explore a world of ideas and inspiration with our diverse
+              collection of insightful blogs. */}
               Explore a world of ideas and inspiration with our diverse
-              collection of insightful blogs.
+              collection of insightful blogs. Discover expert advice, personal
+              stories, and creative content that will ignite your passion and
+              curiosity.
             </div>
           </div>
           <form action="" className="blog-form-sec">

@@ -13,10 +13,9 @@
   background-repeat: no-repeat;
   background-size: cover;
   object-fit: cover;
-  border-radius: 10px;
-  margin: 10vh 0;
-  height: 500px;
-  width: 90%;
+  /* margin: 10vh 0; */
+  height: 85vh;
+  width: 100%;
   display: flex;
   justify-content: start;
   align-items: center;
@@ -36,13 +35,13 @@
   justify-content: center;
   align-items: start;
   flex-direction: column;
-  gap: 5px;
+  gap: 15px;
   font-family: sans-serif;
 }
 .blog-title > div {
   font-weight: 500;
   line-height: 25px;
-  font-size: 01rem;
+  font-size: 1.1rem;
 }
 .blog-form-sec {
   position: absolute;
