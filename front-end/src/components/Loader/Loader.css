@@ -1,0 +1,38 @@
+.loader-main-body {
+  height: 85vh;
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-color: rgb(255, 205, 205); */
+}
+.loader-sub-body {
+  height: 100px;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  position: relative;
+
+  /* background-color: rgb(193, 4, 4); */
+}
+.loader-img {
+  position: absolute;
+  right: 23px;
+  height: 35px;
+  filter: invert(1);
+}
+.loader-border {
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  position: absolute;
+  border-top: 5px solid rgb(149, 149, 149);
+  animation: rotate 2s linear infinite;
+}
+@keyframes rotate {
+  from {
+    transform: rotate(1turn);
+  }
+}

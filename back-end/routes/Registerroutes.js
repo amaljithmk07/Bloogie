@@ -6,21 +6,22 @@ const Register_DB = require("../model/RegisterSchema");
 const bcrypt = require("bcryptjs");
 
 Registerroutes.post("/", async (req, res) => {
-  console.log(re.body);
-  const old_user = await Login_DB.find({
-    email: req.body.email,
+  console.log(req.body);
+  const lower_email = req.body.email.toLowerCase();
+  const old_user = await Login_DB.findOne({
+    email: lower_email,
   });
   if (old_user) {
     return res.status(400).json({
-      Error: false,
-      success: true,
+      Error: true,
+      success: false,
       message: "User Already Exist",
     });
   }
   const Hashedpass = await bcrypt.hash(req.body.password, 12);
 
   const log = {
-    email: req.body.email,
+    email: lower_email,
     password: Hashedpass,
   };
   const log_result = await Login_DB(log).save();

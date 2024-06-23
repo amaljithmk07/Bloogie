@@ -1,5 +1,14 @@
 const mongoose = require("mongoose");
 const BlogSchema = new mongoose.Schema({
+  login_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: "login_db",
+  },
+  image: {
+    type: String,
+    required: true,
+  },
   title: {
     type: String,
     required: true,

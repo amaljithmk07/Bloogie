@@ -1,0 +1,116 @@
+.edit-blog-main-body {
+  min-height: 85vh;
+  width: 100%;
+  background-color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: sans-serif;
+}
+.edit-blog-sub-body {
+  height: 85vh;
+  width: 100%;
+  /* background-color: blue; */
+  background-image: url("/edit-blog.jpg");
+  background-repeat: repeat;
+  background-size: cover;
+  object-fit: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+.edit-blog-title {
+  font-size: 4rem;
+  color: white;
+  font-weight: 600;
+}
+/* ////// */
+.edit-blog-card-sec {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  /* background-color: red; */
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  scrollbar-width: none;
+}
+.edit-blog-card {
+  width: 450px;
+  height: 250px;
+  display: flex;
+  flex-shrink: 0;
+  margin: 0 15px;
+  justify-content: space-around;
+  align-items: center;
+  background-color: aliceblue;
+  position: relative;
+}
+.edit-blog-card-edit-icon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  height: 17px;
+  width: auto;
+  cursor: pointer;
+  /* background-color: red; */
+}
+.edit-blog-content-img {
+  height: auto;
+  width: 120px;
+}
+.edit-blog-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-direction: column;
+
+  height: 100%;
+  width: 60%;
+  background-color: rgb(255, 255, 255);
+}
+.edit-blog-content-data {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+  height: 30px;
+  width: 90%;
+  border: 0;
+  outline: none;
+  /* background-color: rgb(188, 84, 84); */
+}
+.edit-blog-update-card-sec {
+  height: 400px;
+  width: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  background-color: aliceblue;
+}
+.edit-blog-update-img {
+  height: 50px;
+  width: auto;
+  background-color: red;
+}
+.edit-blog-update-data {
+  height: 40px;
+  width: 80%;
+  background-color: red;
+}
+.edit-blog-update-btn {
+  height: 40px;
+  width: 80%;
+  border: 0;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  background-color: red;
+}

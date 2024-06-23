@@ -1,15 +1,15 @@
 .home-main-body {
-  min-height: 100vh;
+  min-height: 85vh;
   width: 100%;
-  /* background-color: antiquewhite; */
+  background-color: rgb(255, 255, 255);
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding: 10vh 0 0 0;
   gap: 40px;
 }
 .home-img-body {
+  margin: 10vh 0 0 0;
   height: 550px;
   width: 90%;
   border-radius: 10px;
@@ -69,6 +69,7 @@
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  gap: 40px;
 }
 .home-article-card-sec {
   min-height: 270px;
@@ -77,7 +78,7 @@
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  background-color: rgb(242, 242, 242);
+  background-color: rgb(212, 212, 212);
   gap: 20px;
 }
 .home-article-card-img {
@@ -86,7 +87,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgb(219, 219, 219);
+  background-color: rgb(247, 247, 247);
 }
 .home-article-card-content {
   height: 220px;
@@ -94,5 +95,5 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgb(213, 213, 213);
+  background-color: rgb(248, 248, 248);
 }
