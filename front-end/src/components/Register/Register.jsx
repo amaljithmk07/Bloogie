@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Register.css";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import BASE_URI from "../Constant/Constant";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ const Register = () => {
   const registerFormSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(`http://localhost:2222/api/register/`, registerFormData)
+      .post(`${BASE_URI}/api/register/`, registerFormData)
       .then((data) => {
         console.log(data);
         navigate("/");

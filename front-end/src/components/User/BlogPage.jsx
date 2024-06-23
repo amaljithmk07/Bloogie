@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./BlogPage.css";
 import axios from "axios";
 import Loader from "../Loader/Loader";
+import BASE_URI from "../Constant/Constant";
 const BlogPage = () => {
   const token = sessionStorage.getItem("token");
   ////Loader
@@ -34,7 +35,7 @@ const BlogPage = () => {
     formData.append("author", blogForm.author);
 
     axios
-      .post(`http://localhost:2222/api/blog/add-blog`, formData, {
+      .post(`${BASE_URI}/api/blog/add-blog`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -3,6 +3,7 @@ import "./EditBlog.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Loader from "../Loader/Loader";
+import BASE_URI from "../Constant/Constant";
 const EditBlog = () => {
   const navigate = useNavigate();
   const token = sessionStorage.getItem("token");
@@ -16,7 +17,7 @@ const EditBlog = () => {
   useEffect(() => {
     setLoader(true);
     axios
-      .get(`http://localhost:2222/api/blog/seperate-blog`, {
+      .get(`${BASE_URI}/api/blog/seperate-blog`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -48,7 +49,7 @@ const EditBlog = () => {
   const editHandler = (id) => {
     console.log(id);
     axios
-      .get(`http://localhost:2222/api/blog/view-one-blog/${id}`, {
+      .get(`${BASE_URI}/api/blog/view-one-blog/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -75,7 +76,7 @@ const EditBlog = () => {
 
   const updateFieldSubmit = (id) => {
     axios
-      .put(`http://localhost:2222/api/blog/edit-blog/${id}`, singleView, {
+      .put(`${BASE_URI}/api/blog/edit-blog/${id}`, singleView, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

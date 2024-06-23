@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Login.css";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import BASE_URI from "../Constant/Constant";
 const Login = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({});
@@ -18,7 +19,7 @@ const Login = () => {
   const formSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(`http://localhost:2222/api/login/`, formData)
+      .post(`${BASE_URI}/api/login/`, formData)
       .then((data) => {
         console.log(data);
         sessionStorage.setItem("token", data.data.token);

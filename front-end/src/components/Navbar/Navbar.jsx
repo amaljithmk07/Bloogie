@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import BASE_URI from "../Constant/Constant";
 const Navbar = () => {
   const token = sessionStorage.getItem("token");
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ const Navbar = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:2222/api/blog/seperate-blog`, {
+      .get(`${BASE_URI}/api/blog/seperate-blog`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

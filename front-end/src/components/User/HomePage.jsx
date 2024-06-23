@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./HomePage.css";
 import axios from "axios";
 import Loader from "../Loader/Loader";
+import BASE_URI from "../Constant/Constant";
 
 const HomePage = () => {
   const token = sessionStorage.getItem("token");
@@ -12,7 +13,7 @@ const HomePage = () => {
   useEffect(() => {
     setLoader(true);
     axios
-      .get(`http://localhost:2222/api/blog/view-all-blog`, {
+      .get(`${BASE_URI}/api/blog/view-all-blog`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
