@@ -30,7 +30,7 @@ const Navbar = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [token]);
   return (
     <div>
       <div className="navbar-main-body">
