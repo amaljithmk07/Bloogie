@@ -51,7 +51,20 @@ const HomePage = () => {
                   alt=""
                   className="home-article-card-img"
                 />
-                <div className="home-article-card-content">{data.author}</div>
+                <div className="home-article-card-content">
+                  <div className="home-article-card-content-data">
+                    {data.title}
+                  </div>
+                  <div className="home-article-card-content-data">
+                    {data.content}
+                  </div>
+                  <div className="home-article-card-content-data">
+                    {data.time_stamp}
+                  </div>
+                  <div className="home-article-card-content-data">
+                    {data.author}
+                  </div>
+                </div>
               </div>
             ))}
           </div>

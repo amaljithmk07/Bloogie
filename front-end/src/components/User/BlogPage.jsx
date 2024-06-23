@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./BlogPage.css";
 import axios from "axios";
+import Loader from "../Loader/Loader";
 const BlogPage = () => {
   const token = sessionStorage.getItem("token");
   ////Loader

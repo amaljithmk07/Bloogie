@@ -102,7 +102,7 @@ const EditBlog = () => {
               <div className="edit-blog-card-sec">
                 {allBlogs.map((data) => (
                   <>
-                    <form className="edit-blog-card" key={data._id}>
+                    <div className="edit-blog-card" key={data._id}>
                       <img
                         src="/edit-icon.png"
                         className="edit-blog-card-edit-icon"
@@ -128,7 +128,7 @@ const EditBlog = () => {
                           {data.content}
                         </div>
                       </div>
-                    </form>
+                    </div>
                   </>
                 ))}
               </div>
