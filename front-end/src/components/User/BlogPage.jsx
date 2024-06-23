@@ -3,7 +3,9 @@ import "./BlogPage.css";
 import axios from "axios";
 import Loader from "../Loader/Loader";
 import BASE_URI from "../Constant/Constant";
+import { useNavigate } from "react-router-dom";
 const BlogPage = () => {
+  const navigate = useNavigate();
   const token = sessionStorage.getItem("token");
   ////Loader
   const [loader, setLoader] = useState(false);
@@ -41,6 +43,7 @@ const BlogPage = () => {
         },
       })
       .then((data) => {
+        navigate("/home");
         setLoader(false);
         console.log(data);
       })

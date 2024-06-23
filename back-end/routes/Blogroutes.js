@@ -136,14 +136,49 @@ blogroutes.get("/view-one-blog/:id", CheckAuth, async (req, res) => {
         success: true,
         error: false,
         data: Data,
-        message: "edit Blog  successful",
+        message: "Edit Blog  successful",
       });
     } else
       (err) => {
         return res.status(400).json({
           success: false,
           error: true,
-          message: "edit Blog failed",
+          message: "Edit Blog failed",
+          errorMessage: err.message,
+        });
+      };
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      error: true,
+      message: "Network error",
+      errorMessage: err.message,
+    });
+  }
+});
+
+
+///delete single blog 
+
+blogroutes.put("/delete-one-blog/:id", CheckAuth, async (req, res) => {
+  try {
+    const Data = await Blog_DB.deleteOne({
+      _id: req.params.id,
+      login_id: req.userData.userId,
+    });
+    if (Data) {
+      return res.status(200).json({
+        success: true,
+        error: false,
+        data: Data,
+        message: "Delete Blog  successful",
+      });
+    } else
+      (err) => {
+        return res.status(400).json({
+          success: false,
+          error: true,
+          message: "Delete Blog failed",
           errorMessage: err.message,
         });
       };

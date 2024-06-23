@@ -6,12 +6,12 @@ import BASE_URI from "../Constant/Constant";
 const Navbar = () => {
   const token = sessionStorage.getItem("token");
   const navigate = useNavigate();
+
+  ////////Logout Handler
   const logout = () => {
     navigate("/");
     sessionStorage.clear();
   };
-
-  //////////////
 
   //////All blog of the user
   const [allBlogs, setAllblogs] = useState([]);
@@ -24,13 +24,12 @@ const Navbar = () => {
         },
       })
       .then((data) => {
-        console.log(data);
         setAllblogs(data.data.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [token]);
+  }, []);
   return (
     <div>
       <div className="navbar-main-body">
@@ -48,7 +47,7 @@ const Navbar = () => {
               </Link>
               {allBlogs.length !== 0 ? (
                 <Link to={"/blog-edit"} className="navbar-menu-data">
-                  Edit
+                  Editor
                 </Link>
               ) : (
                 <></>

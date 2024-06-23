@@ -25,6 +25,7 @@ const EditBlog = () => {
       .then((data) => {
         console.log(data);
         setAllblogs(data.data.data);
+
         setLoader(false);
       })
       .catch((err) => {
@@ -33,9 +34,9 @@ const EditBlog = () => {
       });
   }, []);
 
-  //////////
+  console.log(allBlogs);
 
-  /////State for viewing selectedd blog
+  /////State for viewing selected blog
   const [singleView, setSingleView] = useState({
     title: "",
     author: "",
@@ -46,7 +47,9 @@ const EditBlog = () => {
   /////form changer
   const [formChanger, setFormchanger] = useState(false);
 
+  /////when clicking the selected blog view seperated
   const editHandler = (id) => {
+    setLoader(true);
     console.log(id);
     axios
       .get(`${BASE_URI}/api/blog/view-one-blog/${id}`, {
@@ -74,7 +77,10 @@ const EditBlog = () => {
     setSingleView({ ...singleView, [name]: value });
   };
 
+  ///Update form Submit
   const updateFieldSubmit = (id) => {
+    setLoader(true);
+
     axios
       .put(`${BASE_URI}/api/blog/edit-blog/${id}`, singleView, {
         headers: {
@@ -91,6 +97,34 @@ const EditBlog = () => {
         console.log(err);
       });
   };
+
+  ///Delete form Submit
+  const deleteHandler = (id) => {
+    setLoader(true);
+
+    axios
+      .put(
+        `${BASE_URI}/api/blog/delete-one-blog/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((data) => {
+        console.log(data);
+        setLoader(false);
+        const filter = allBlogs.filter((data) => {
+          return data._id != id;
+        });
+        setAllblogs(filter);
+      })
+      .catch((err) => {
+        setLoader(false);
+        console.log(err);
+      });
+  };
   return (
     <div>
       {loader == true ? (
@@ -100,6 +134,7 @@ const EditBlog = () => {
           <div className="edit-blog-sub-body">
             <div className="edit-blog-title">Enhance Your Blog</div>
             {formChanger == false ? (
+              ////////////List section
               <div className="edit-blog-card-sec">
                 {allBlogs.map((data) => (
                   <>
@@ -109,6 +144,12 @@ const EditBlog = () => {
                         className="edit-blog-card-edit-icon"
                         alt=""
                         onClick={() => editHandler(data._id)}
+                      />
+                      <img
+                        src="/delete.png"
+                        className="edit-blog-card-delete-icon"
+                        alt=""
+                        onClick={() => deleteHandler(data._id)}
                       />
                       <img
                         src={`/upload/${data.image}`}
@@ -134,7 +175,14 @@ const EditBlog = () => {
                 ))}
               </div>
             ) : (
+              ////////////Update section
               <div className="edit-blog-update-card-sec">
+                <img
+                  src="/back.png"
+                  alt=""
+                  className="edit-blog-update-back-btn"
+                  onClick={() => window.location.reload()}
+                />
                 {/* <img
                   src={`/upload/${singleView.image}`}
                   alt=""
