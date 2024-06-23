@@ -15,6 +15,8 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
+//////Uploading blogs
+
 blogroutes.post(
   "/add-blog",
   upload.single("image"),
@@ -57,6 +59,8 @@ blogroutes.post(
   }
 );
 
+/////Viewing all blogs on homepage
+
 blogroutes.get("/view-all-blog", CheckAuth, async (req, res) => {
   try {
     const Data = await Blog_DB.find();
@@ -85,6 +89,8 @@ blogroutes.get("/view-all-blog", CheckAuth, async (req, res) => {
     });
   }
 });
+
+////Seperate blog for viewing their blogs
 
 blogroutes.get("/seperate-blog", CheckAuth, async (req, res) => {
   try {
@@ -117,23 +123,71 @@ blogroutes.get("/seperate-blog", CheckAuth, async (req, res) => {
   }
 });
 
-blogroutes.get("/edit-blog/:id", CheckAuth, async (req, res) => {
-  try {
+///Viewing single blog for editing
 
-    
+blogroutes.get("/view-one-blog/:id", CheckAuth, async (req, res) => {
+  try {
+    const Data = await Blog_DB.findOne({
+      _id: req.params.id,
+      login_id: req.userData.userId,
+    });
     if (Data) {
       return res.status(200).json({
         success: true,
         error: false,
         data: Data,
-        message: "seperate Blog view successful",
+        message: "edit Blog  successful",
       });
     } else
       (err) => {
         return res.status(400).json({
           success: false,
           error: true,
-          message: "Blog view failed",
+          message: "edit Blog failed",
+          errorMessage: err.message,
+        });
+      };
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      error: true,
+      message: "Network error",
+      errorMessage: err.message,
+    });
+  }
+});
+
+//////Updating blog
+
+blogroutes.put("/edit-blog/:id", CheckAuth, async (req, res) => {
+  try {
+    const Data = await Blog_DB.updateOne(
+      {
+        _id: req.params.id,
+        login_id: req.userData.userId,
+      },
+      {
+        $set: {
+          title: req.body.title,
+          author: req.body.author,
+          content: req.body.content,
+          time_stamp: req.body.time_stamp,
+        },
+      }
+    );
+    if (Data) {
+      return res.status(200).json({
+        success: true,
+        error: false,
+        data: Data,
+        message: "Blog Updated successful",
+      });
+    } else
+      (err) => {
+        return res.status(400).json({
+          success: false,
+          error: true,
+          message: " failed",
           errorMessage: err.message,
         });
       };

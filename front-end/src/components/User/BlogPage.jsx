@@ -3,6 +3,8 @@ import "./BlogPage.css";
 import axios from "axios";
 const BlogPage = () => {
   const token = sessionStorage.getItem("token");
+  ////Loader
+  const [loader, setLoader] = useState(false);
 
   const [blogForm, setBlogForm] = useState({});
 
@@ -21,6 +23,7 @@ const BlogPage = () => {
 
   const blogSubmit = (e) => {
     e.preventDefault();
+    setLoader(true);
 
     const formData = new FormData();
     formData.append("image", blogForm.image);
@@ -36,80 +39,86 @@ const BlogPage = () => {
         },
       })
       .then((data) => {
+        setLoader(false);
         console.log(data);
       })
       .catch((err) => {
         console.log(err);
+        setLoader(false);
       });
   };
   console.log(blogForm);
   return (
     <div>
-      <div className="blog-main-body">
-        <div className="blog-sub-body">
-          <div className="blog-title">
-            {" "}
-            INSIGHT HUB
-            <div>
+      {loader == true ? (
+        <Loader />
+      ) : (
+        <div className="blog-main-body">
+          <div className="blog-sub-body">
+            <div className="blog-title">
               {" "}
-              {/* Explore a world of ideas and inspiration with our diverse
+              INSIGHT HUB
+              <div>
+                {" "}
+                {/* Explore a world of ideas and inspiration with our diverse
               collection of insightful blogs. */}
-              Explore a world of ideas and inspiration with our diverse
-              collection of insightful blogs. Discover expert advice, personal
-              stories, and creative content that will ignite your passion and
-              curiosity.
+                Explore a world of ideas and inspiration with our diverse
+                collection of insightful blogs. Discover expert advice, personal
+                stories, and creative content that will ignite your passion and
+                curiosity.
+              </div>
             </div>
+            <form
+              action=""
+              className="blog-form-sec"
+              encType="multipart/form-data"
+            >
+              <input
+                type="file"
+                id="image"
+                hidden
+                name="image"
+                onChange={formDataImage}
+              />{" "}
+              <label className="blog-form-upload" htmlFor="image">
+                <img src="upload.png" alt="" className="blog-form-upload-img" />
+                Upload
+              </label>
+              <input
+                type="text"
+                placeholder="Title"
+                className="blog-form-data"
+                name="title"
+                onChange={formDataHandler}
+              />
+              <input
+                type="text"
+                placeholder="Content"
+                name="content"
+                className="blog-form-data"
+                onChange={formDataHandler}
+              />
+              <input
+                type="text"
+                placeholder="Timestamp"
+                name="time_stamp"
+                className="blog-form-data"
+                onChange={formDataHandler}
+              />
+              <input
+                type="text"
+                placeholder="Author"
+                name="author"
+                className="blog-form-data"
+                onChange={formDataHandler}
+              />
+              <button className="blog-form-btn" onClick={blogSubmit}>
+                SUBMIT
+              </button>
+            </form>
           </div>
-          <form
-            action=""
-            className="blog-form-sec"
-            encType="multipart/form-data"
-          >
-            <input
-              type="file"
-              id="image"
-              hidden
-              name="image"
-              onChange={formDataImage}
-            />{" "}
-            <label className="blog-form-upload" htmlFor="image">
-              <img src="upload.png" alt="" className="blog-form-upload-img" />
-              Upload
-            </label>
-            <input
-              type="text"
-              placeholder="Title"
-              className="blog-form-data"
-              name="title"
-              onChange={formDataHandler}
-            />
-            <input
-              type="text"
-              placeholder="Content"
-              name="content"
-              className="blog-form-data"
-              onChange={formDataHandler}
-            />
-            <input
-              type="text"
-              placeholder="Timestamp"
-              name="time_stamp"
-              className="blog-form-data"
-              onChange={formDataHandler}
-            />
-            <input
-              type="text"
-              placeholder="Author"
-              name="author"
-              className="blog-form-data"
-              onChange={formDataHandler}
-            />
-            <button className="blog-form-btn" onClick={blogSubmit}>
-              SUBMIT
-            </button>
-          </form>
         </div>
-      </div>
+      )}
     </div>
   );
 };

@@ -94,23 +94,29 @@
   align-items: center;
   flex-direction: column;
   gap: 20px;
+  border-radius: 20px;
   background-color: aliceblue;
 }
 .edit-blog-update-img {
   height: 50px;
   width: auto;
-  background-color: red;
+  /* background-color: red; */
 }
 .edit-blog-update-data {
   height: 40px;
-  width: 80%;
-  background-color: red;
+  width: 75%;
+  border-radius: 5px;
+  padding: 0 10px;
+  border: 0;
+  /* background-color: red; */
 }
 .edit-blog-update-btn {
-  height: 40px;
+  height: 45px;
   width: 80%;
   border: 0;
   border-radius: 10px;
+  color: white;
   font-size: 1.2rem;
-  background-color: red;
+  cursor: pointer;
+  background-color: rgb(39, 0, 72);
 }
