@@ -45,6 +45,7 @@
   color: white;
   font-weight: 600;
   text-align: center;
+  line-height: 50px;
 }
 .edit-blog-title > div {
   font-size: .95rem;
