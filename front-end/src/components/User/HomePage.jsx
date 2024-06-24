@@ -44,6 +44,8 @@ const HomePage = () => {
               <button className="home-img-body-btn">View Articles</button>
             </div>
           </div>
+
+          <div className="home-article-title">Explore All Our Articles</div>
           <div className="home-article-body">
             {allBlogs.map((data) => (
               <div className="home-article-card-sec">

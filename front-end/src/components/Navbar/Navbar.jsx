@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Navbar.css";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import BASE_URI from "../Constant/Constant";
 const Navbar = () => {
   const token = sessionStorage.getItem("token");
   const navigate = useNavigate();
@@ -13,23 +11,6 @@ const Navbar = () => {
     sessionStorage.clear();
   };
 
-  //////All blog of the user
-  const [allBlogs, setAllblogs] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get(`${BASE_URI}/api/blog/seperate-blog`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((data) => {
-        setAllblogs(data.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
   return (
     <div>
       <div className="navbar-main-body">
@@ -45,13 +26,9 @@ const Navbar = () => {
               <Link to={"/blog"} className="navbar-menu-data">
                 Blog
               </Link>
-              {allBlogs.length !== 0 ? (
-                <Link to={"/blog-edit"} className="navbar-menu-data">
-                  Editor
-                </Link>
-              ) : (
-                <></>
-              )}
+              <Link to={"/blog-edit"} className="navbar-menu-data">
+                Editor
+              </Link>
             </>
           ) : (
             <></>

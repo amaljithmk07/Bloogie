@@ -131,8 +131,16 @@ const EditBlog = () => {
         <Loader />
       ) : (
         <div className="edit-blog-main-body">
-          <div className="edit-blog-sub-body">
-            <div className="edit-blog-title">Enhance Your Blog</div>
+          <div className="edit-blog-img-body">
+            <div className="edit-blog-title">
+              Enhance Your Blog
+              <div>
+                Edit and enhance your blog with our expert articles, offering
+                tips, trends, and insights to elevate your content.
+              </div>
+            </div>
+          </div>
+          <div className="edit-blog-content-body">
             {formChanger == false ? (
               ////////////List section
               <div className="edit-blog-card-sec">

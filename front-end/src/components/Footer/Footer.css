@@ -1,0 +1,17 @@
+.footer-main-body {
+  height: 350px;
+  width: 100%;
+  background-color: rgb(225, 225, 225);
+  display: flex;
+  justify-content: space-between;
+}
+.footer-title {
+  height: 50px;
+  width: 300px;
+  /* background-color: rgb(1, 128, 86); */
+}
+.footer-content {
+  height: 350px;
+  width: 50%;
+  /* background-color: rgb(115, 128, 1); */
+}
