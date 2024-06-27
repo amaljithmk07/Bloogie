@@ -48,7 +48,7 @@ const HomePage = () => {
           <div className="home-article-title">Explore All Our Articles</div>
           <div className="home-article-body">
             {allBlogs.map((data) => (
-              <div className="home-article-card-sec">
+              <div className="home-article-card-sec" key={data._id}>
                 <img
                   src={`/upload/${data.image}`}
                   alt=""

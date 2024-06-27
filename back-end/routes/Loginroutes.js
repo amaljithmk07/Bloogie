@@ -11,7 +11,7 @@ loginroutes.post("/", async (req, res) => {
   const lower_email = req.body.email.toLowerCase();
   console.log(lower_email);
   const old_user = await Login_DB.findOne({
-    email: lower_email,
+    email: lower_email
   });
   if (!old_user) {
     return res.status(400).json({
