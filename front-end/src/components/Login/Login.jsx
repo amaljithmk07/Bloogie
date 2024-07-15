@@ -45,7 +45,8 @@ const Login = () => {
       ) : (
         <div className="login-main-body">
           <form action="" className="login-form-body">
-            <div className="login-form-title">LOGIN</div>
+            {/* <div className="login-form-title">LOGIN</div> */}
+            <img src="/login.png" className="login-form-title" />
             <input
               type="text"
               name="email"
@@ -62,6 +63,7 @@ const Login = () => {
             />
             <button onClick={formSubmit} className="login-form-btn">
               Submit
+              <div className="login-form-btn-back"></div>
             </button>
             <div>
               New to Bloogie? <Link to={"/register"}>Sign up</Link>

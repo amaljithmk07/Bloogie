@@ -6,6 +6,7 @@ import BlogPage from "./components/User/BlogPage";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import EditBlog from "./components/User/EditBlog";
+import Terms from "./components/Register/Terms";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Login />} />
+          {/* <Route path="/" element={<Terms />} /> */}
           <Route path="/register" element={<Register />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/blog" element={<BlogPage />} />
