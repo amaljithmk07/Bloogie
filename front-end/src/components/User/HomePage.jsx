@@ -3,9 +3,11 @@ import "./HomePage.css";
 import axios from "axios";
 import Loader from "../Loader/Loader";
 import BASE_URI from "../Constant/Constant";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   const token = sessionStorage.getItem("token");
+  const navigate = useNavigate();
   ////Loader
   const [loader, setLoader] = useState(false);
 
@@ -49,24 +51,26 @@ const HomePage = () => {
           <div className="home-article-body">
             {allBlogs.map((data) => (
               <div className="home-article-card-sec" key={data._id}>
-                <img
-                  src={`/upload/${data.image}`}
-                  alt=""
-                  className="home-article-card-img"
-                />
+                <div className="home-article-card-img-sec">
+                  <img
+                    src={`/upload/${data.image}`}
+                    // src={`/blog-background.jpg`}
+                    alt=""
+                    className="home-article-card-img"
+                  />
+                  <div className="home-article-card-title">{data.title}</div>
+                  <button
+                    className="home-article-card-btn"
+                    onClick={() => navigate(`/blog-view/${data._id}`)}
+                  >
+                    VISIT
+                  </button>
+                </div>
                 <div className="home-article-card-content">
                   <div className="home-article-card-content-data">
                     {data.title}
                   </div>
-                  <div className="home-article-card-content-data">
-                    {data.content}
-                  </div>
-                  <div className="home-article-card-content-data">
-                    {data.time_stamp}
-                  </div>
-                  <div className="home-article-card-content-data">
-                    {data.author}
-                  </div>
+                  <div className="home-article-card-content-data">Rating </div>
                 </div>
               </div>
             ))}

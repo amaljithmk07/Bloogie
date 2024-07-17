@@ -18,9 +18,27 @@ const Register = () => {
     setRegisterFormData({ ...registerFormData, [name]: value });
   };
 
+  //////////////
+
+  const [checkmark, setCheckmark] = useState(false);
+  const toggleSubmitButton = () => {
+    setCheckmark((prev) => !prev);
+  };
+
   ///////////
+
   const registerFormSubmit = (e) => {
     e.preventDefault();
+    const fields = ["name", "email", "phone", "password"];
+    const messages = ["Name ", "Email ", "phone ", "password "];
+
+    for (let i = 0; i < fields.length; i++) {
+      let value = document.forms["register-form"][fields[i]].value;
+      if (value === "") {
+        alert(`Please fill in the ${messages[i]}`);
+        return false;
+      }
+    }
     setLoader(true);
 
     axios
@@ -29,13 +47,18 @@ const Register = () => {
         console.log(data);
         navigate("/");
         setLoader(false);
+        setCheckmark(false);
       })
       .catch((err) => {
         console.log(err);
+        setCheckmark(false);
+
         setLoader(false);
       });
   };
-  const registerAlert = () => {
+  const registerAlert = (e) => {
+    e.preventDefault();
+
     alert("Please accept our terms and conditions to continue.");
   };
 
@@ -45,12 +68,6 @@ const Register = () => {
     setTermsandcondition(true);
   };
 
-  //////////////
-
-  const [checkmark, setCheckmark] = useState(false);
-  const toggleSubmitButton = () => {
-    setCheckmark((prev) => !prev);
-  };
   console.log(checkmark);
   return (
     <div>
@@ -60,7 +77,11 @@ const Register = () => {
         <>
           {termsandcondition == false ? (
             <div className="register-main-body">
-              <form action="" className="register-form-body">
+              <form
+                action=""
+                className="register-form-body"
+                name="register-form"
+              >
                 {/* <div className="register-form-title">REGISTER</div> */}
                 <img src="register.png" className="register-form-title" />
                 <input
@@ -92,6 +113,7 @@ const Register = () => {
                   className="register-form-input"
                 />
                 <div>
+                  <span style={{ color: "red" }}>*</span>{" "}
                   <input
                     type="checkbox"
                     id="formcheck"
@@ -101,8 +123,8 @@ const Register = () => {
                   <Link onClick={TermsHandler}>terms and conditions.</Link>
                 </div>
                 <button
-                  onClick={() =>
-                    checkmark == true ? registerFormSubmit() : registerAlert()
+                  onClick={(e) =>
+                    checkmark == true ? registerFormSubmit(e) : registerAlert(e)
                   }
                   className={
                     checkmark == true

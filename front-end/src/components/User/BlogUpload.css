@@ -1,4 +1,4 @@
-.blog-main-body {
+.blog-upload-main-body {
   min-height: 50vh;
   width: 100%;
   /* background-color: bisque; */
@@ -7,7 +7,7 @@
   align-items: center;
   flex-direction: column;
 }
-.blog-sub-body {
+.blog-upload-sub-body {
   background-image: url("/blog-background.jpg");
   background-position: center;
   background-repeat: no-repeat;
@@ -23,7 +23,7 @@
   flex-wrap: wrap;
   position: relative;
 }
-.blog-title {
+.blog-upload-title {
   position: absolute;
   height: 300px;
   width: 500px;
@@ -39,12 +39,12 @@
   gap: 10px;
   font-family: sans-serif;
 }
-.blog-title > div {
+.blog-upload-title > div {
   font-weight: 500;
   line-height: 23px;
   font-size: 1rem;
 }
-.blog-form-sec {
+.blog-upload-form-sec {
   position: absolute;
   right: 200px;
   height: 420px;
@@ -57,7 +57,7 @@
   border-radius: 10px;
   background-color: rgb(255, 255, 255);
 }
-.blog-form-upload {
+.blog-upload-form-upload {
   width: 70%;
   height: 50px;
   display: flex;
@@ -73,10 +73,10 @@
   cursor: pointer;
   font-family: math;
 }
-.blog-form-upload-img {
+.blog-upload-form-upload-img {
   height: 30px;
 }
-.blog-form-data {
+.blog-upload-form-data {
   width: 70%;
   height: 40px;
   font-size: 1.05rem;
@@ -86,11 +86,11 @@
   border-radius: 5px;
 }
 
-.blog-form-data:focus {
+.blog-upload-form-data:focus {
   outline: 1px solid rgb(214, 214, 214);
 }
 
-.blog-form-btn {
+.blog-upload-form-btn {
   width: 75%;
   height: 45px;
   font-size: 1.01rem;

@@ -22,6 +22,17 @@ const Login = () => {
   ///////////
   const formSubmit = (e) => {
     e.preventDefault();
+
+    let field = ["email", "password"];
+    let message = ["Email", "Password"];
+
+    for (let i = 0; i < field.length; i++) {
+      let X = document.forms["login-form"][field[i]].value;
+      if (X == "") {
+        alert(`Please fill out ${message[i]}`);
+        return false;
+      }
+    }
     setLoader(true);
     axios
       .post(`${BASE_URI}/api/login/`, formData)
@@ -44,7 +55,7 @@ const Login = () => {
         <Loader />
       ) : (
         <div className="login-main-body">
-          <form action="" className="login-form-body">
+          <form action="" className="login-form-body" name="login-form">
             {/* <div className="login-form-title">LOGIN</div> */}
             <img src="/login.png" className="login-form-title" />
             <input

@@ -1,0 +1,20 @@
+.blog-view-main-body {
+  min-height: 100vh;
+  width: 100%;
+  background-color: red;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+.blog-view-sub-body {
+  min-height: 500px;
+  width: 100%;
+  background-color: rgb(102, 255, 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}

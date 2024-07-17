@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./BlogPage.css";
+import "./BlogUpload.css";
 import axios from "axios";
 import Loader from "../Loader/Loader";
 import BASE_URI from "../Constant/Constant";
@@ -58,9 +58,9 @@ const BlogPage = () => {
       {loader == true ? (
         <Loader />
       ) : (
-        <div className="blog-main-body">
-          <div className="blog-sub-body">
-            <div className="blog-title">
+        <div className="blog-upload-main-body">
+          <div className="blog-upload-sub-body">
+            <div className="blog-upload-title">
               {" "}
               INSIGHT HUB
               <div>
@@ -75,7 +75,7 @@ const BlogPage = () => {
             </div>
             <form
               action=""
-              className="blog-form-sec"
+              className="blog-upload-form-sec"
               encType="multipart/form-data"
             >
               <input
@@ -85,14 +85,14 @@ const BlogPage = () => {
                 name="image"
                 onChange={formDataImage}
               />{" "}
-              <label className="blog-form-upload" htmlFor="image">
-                <img src="upload.png" alt="" className="blog-form-upload-img" />
+              <label className="blog-upload-form-upload" htmlFor="image">
+                <img src="upload.png" alt="" className="blog-upload-form-upload-img" />
                 Upload
               </label>
               <input
                 type="text"
                 placeholder="Title"
-                className="blog-form-data"
+                className="blog-upload-form-data"
                 name="title"
                 onChange={formDataHandler}
               />
@@ -100,24 +100,24 @@ const BlogPage = () => {
                 type="text"
                 placeholder="Content"
                 name="content"
-                className="blog-form-data"
+                className="blog-upload-form-data"
                 onChange={formDataHandler}
               />
               <input
                 type="text"
                 placeholder="Timestamp"
                 name="time_stamp"
-                className="blog-form-data"
+                className="blog-upload-form-data"
                 onChange={formDataHandler}
               />
               <input
                 type="text"
                 placeholder="Author"
                 name="author"
-                className="blog-form-data"
+                className="blog-upload-form-data"
                 onChange={formDataHandler}
               />
-              <button className="blog-form-btn" onClick={blogSubmit}>
+              <button className="blog-upload-form-btn" onClick={blogSubmit}>
                 SUBMIT
               </button>
             </form>

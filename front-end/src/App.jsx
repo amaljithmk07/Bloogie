@@ -2,11 +2,12 @@ import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
 import HomePage from "./components/User/HomePage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import BlogPage from "./components/User/BlogPage";
+import BlogPage from "./components/User/BlogUpload";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import EditBlog from "./components/User/EditBlog";
 import Terms from "./components/Register/Terms";
+import BlogView from "./components/User/BlogView";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog-view/:id" element={<BlogView />} />
           <Route path="/blog-edit" element={<EditBlog />} />
         </Routes>
       </Router>
