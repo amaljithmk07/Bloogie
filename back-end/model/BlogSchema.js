@@ -25,12 +25,7 @@ const BlogSchema = new mongoose.Schema({
   //   type: String,
   //   required: true,
   // },
-  comment_sec: [
-    {
-      type: String,
-      required: true,
-    },
-  ],
+
   rating: {
     type: String,
     required: true,

@@ -28,11 +28,25 @@
   width: 80px;
   border-radius: 50%;
   position: absolute;
-  border-top: 5px solid rgb(149, 149, 149);
+  border-right: 3px solid #b1b1b1;
+  border-left: 3px solid #b1b1b1;
   animation: rotate 2s linear infinite;
 }
 @keyframes rotate {
   from {
     transform: rotate(1turn);
+  }
+}
+
+.loader-border:nth-child(1) {
+  height: 65px;
+  width: 65px;
+  border-right: 3px solid #cfcfcf;
+  border-left: 3px solid #cfcfcf;
+  animation: anti-rotate 3s linear infinite;
+}
+@keyframes anti-rotate {
+  from {
+    transform: rotate(-1turn);
   }
 }

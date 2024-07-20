@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 const express = require("express");
 const blogroutes = express.Router();
 const Blog_DB = require("../model/BlogSchema");
+const Comment_DB = require("../model/CommentSchema");
+const Register_DB = require("../model/RegisterSchema");
 const CheckAuth = require("../middleware/CheckAuth");
 const multer = require("multer");
 
@@ -157,8 +159,7 @@ blogroutes.get("/view-one-blog/:id", CheckAuth, async (req, res) => {
   }
 });
 
-
-///delete single blog 
+///delete single blog
 
 blogroutes.put("/delete-one-blog/:id", CheckAuth, async (req, res) => {
   try {
@@ -216,6 +217,171 @@ blogroutes.put("/edit-blog/:id", CheckAuth, async (req, res) => {
         error: false,
         data: Data,
         message: "Blog Updated successful",
+      });
+    } else
+      (err) => {
+        return res.status(400).json({
+          success: false,
+          error: true,
+          message: " failed",
+          errorMessage: err.message,
+        });
+      };
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      error: true,
+      message: "Network error",
+      errorMessage: err.message,
+    });
+  }
+});
+//////view seperate blog in detail
+
+blogroutes.get("/view-blog-in-detail/:id", CheckAuth, async (req, res) => {
+  try {
+    const BlogwithComments = await Blog_DB.aggregate([
+      {
+        $lookup: {
+          from: "comments_dbs",
+          localField: "_id",
+          foreignField: "blog_id",
+          as: "results",
+        },
+      },
+
+      {
+        $match: {
+          _id: new mongoose.Types.ObjectId(req.params.id),
+        },
+      },
+      {
+        $group: {
+          _id: "$_id",
+          login_id: {
+            $first: "$login_id",
+          },
+          title: {
+            $first: "$title",
+          },
+          author: {
+            $first: "$author",
+          },
+          content: {
+            $first: "$content",
+          },
+          image: {
+            $first: "$image",
+          },
+          rating: {
+            $first: "$rating",
+          },
+          login_id: {
+            $first: "$login_id",
+          },
+          user_id: {
+            $first: "$results.user_id",
+          },
+          user_name: {
+            $first: "$results.user_name",
+          },
+          comment: {
+            $first: "$results.comment",
+          },
+        },
+      },
+    ]);
+    console.log(BlogwithComments);
+
+    if (BlogwithComments) {
+      return res.status(200).json({
+        success: true,
+        error: false,
+        data: BlogwithComments,
+        message: "Blog View successful",
+      });
+    } else
+      (err) => {
+        return res.status(400).json({
+          success: false,
+          error: true,
+          message: " failed",
+          errorMessage: err.message,
+        });
+      };
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      error: true,
+      message: "Network error",
+      errorMessage: err.message,
+    });
+  }
+});
+
+//////Comment upload for the selected blog
+
+blogroutes.post("/comment-upload/:id", CheckAuth, async (req, res) => {
+  console.log(req.body.comment);
+  try {
+    const user = await Register_DB.findOne({
+      login_id: req.userData.userId,
+    });
+    const Data = await Comment_DB({
+      user_id: req.userData.userId,
+      user_name: user.name,
+      comment: req.body.comment,
+      blog_id: req.params.id,
+    });
+    Data.save();
+    if (Data) {
+      return res.status(200).json({
+        success: true,
+        error: false,
+        data: Data,
+        message: "Comment Uploaded Successful",
+      });
+    } else
+      (err) => {
+        return res.status(400).json({
+          success: false,
+          error: true,
+          message: " failed",
+          errorMessage: err.message,
+        });
+      };
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      error: true,
+      message: "Network error",
+      errorMessage: err.message,
+    });
+  }
+});
+
+////Rating Adding
+
+blogroutes.post("/rating-add", CheckAuth, async (req, res) => {
+  console.log(req.body);
+  try {
+    const Data = await Blog_DB.updateOne(
+      {
+        _id: req.body.id,
+      },
+      {
+        $set: {
+          rating: req.body.number,
+        },
+      }
+    );
+    Data.save();
+    if (Data) {
+      return res.status(200).json({
+        success: true,
+        error: false,
+        data: Data,
+        message: "Rating added Successful",
       });
     } else
       (err) => {

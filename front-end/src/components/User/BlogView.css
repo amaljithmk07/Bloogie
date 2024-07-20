@@ -1,20 +1,210 @@
 .blog-view-main-body {
   min-height: 100vh;
   width: 100%;
-  background-color: red;
+  /* background-color: red; */
   display: flex;
   justify-content: start;
   align-items: center;
   flex-direction: column;
   gap: 20px;
+  padding: 5vh 0 10vh 0;
+  font-family: sans-serif;
 }
 .blog-view-sub-body {
   min-height: 500px;
-  width: 100%;
-  background-color: rgb(102, 255, 0);
+  width: 80%;
+  /* background-color: rgb(102, 255, 0); */
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   gap: 20px;
+}
+
+/* /////////////// */
+.blog-view-img-body {
+  min-height: 500px;
+  width: 90%;
+  /* background-color: rgb(255, 183, 0); */
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 50px;
+}
+.blog-view-img {
+  height: 500px;
+  width: 600px;
+  border-radius: 5px;
+}
+.blog-view-title-sec {
+  width: 400px;
+  min-height: 350px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  flex-direction: column;
+  /* background-color: rgb(30, 0, 255); */
+  font-size: 3rem;
+  font-weight: 600;
+}
+.blog-view-title {
+  width: 100%;
+  min-height: 20px;
+  overflow: hidden;
+
+  /* background-color: red; */
+  font-size: 3rem;
+  font-weight: 600;
+}
+.blog-view-title:nth-child(2) {
+  font-size: 1.5rem;
+  font-weight: 500;
+  text-align: center;
+  height: auto;
+}
+.blog-view-title:nth-child(3) {
+  height: auto;
+  text-align: center;
+  font-size: 2rem;
+}
+/* //////////// */
+.blog-view-content-sec {
+  min-height: 100px;
+  width: 90%;
+  /* background-color: rgb(255, 183, 0); */
+  line-height: 30px;
+}
+
+/* ////////// */
+.blog-view-rating-sec {
+  height: 70px;
+  width: 90%;
+  /* background-color: rgb(0, 255, 85); */
+  line-height: 30px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 20px;
+}
+.blog-view-rating-img {
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+}
+/* /////// */
+.blog-view-comments-sec {
+  min-height: 200px;
+  width: 90%;
+  /* background-color: rgb(0, 255, 85); */
+  line-height: 30px;
+  font-size: 1.6rem;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-direction: column;
+  gap: 20px;
+}
+.blog-view-comments-area {
+  min-height: 80px;
+  max-height: 400px;
+  width: 90%;
+  padding: 10px 5%;
+  /* border: 1px solid rgb(207, 207, 207); */
+
+  background-color: rgb(227, 227, 227);
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.39) ;
+  scrollbar-width: auto;
+  border-radius: 5px;
+  line-height: 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: column;
+  gap: 15px;
+}
+.blog-view-comment-body {
+  min-height: 50px;
+  width: 100%;
+  border: 1px solid rgb(215, 215, 215);
+  border-radius: 10px;
+
+  background-color: rgb(255, 255, 255);
+  line-height: 20px;
+  padding: 15px 0 15px 20px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 500;
+  gap: 20px;
+}
+.blog-view-comment-username {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  background-color: rgb(238, 238, 238);
+}
+.blog-view-comment {
+  min-height: 30px;
+  width: 90%;
+  /* background-color: rgb(154, 145, 145); */
+  display: flex;
+  flex-wrap: wrap;
+  /* white-space:nowrap; */
+}
+
+/* //////////// */
+.blog-view-comments-upload {
+  min-height: 100px;
+  width: 100%;
+  /* background-color: rgb(255, 208, 0); */
+  font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+.blog-view-comments-input {
+  min-height: 50px;
+  min-width: 80%;
+  max-width: 80%;
+  font-family: sans-serif;
+  /* border: 0; */
+  background-color: rgb(255, 255, 255);
+  font-size: 1.05rem;
+  padding: 10px;
+  border-radius: 10px;
+}
+.blog-view-comments-input::placeholder {
+  font-size: 1.05rem;
+}
+.blog-view-comments-send-btn {
+  height: 35px;
+  width: auto;
+  cursor: pointer;
+}
+
+/* ///////// */
+
+.blog-view-comments-respect {
+  min-height: 20px;
+  width: 80%;
+  font-family: sans-serif;
+  /* background-color: rgb(134, 52, 52); */
+  font-size: 1.02rem;
+  font-weight: 500;
+  margin: 0 0 0 10%;
 }

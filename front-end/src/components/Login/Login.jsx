@@ -17,7 +17,7 @@ const Login = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  console.log(formData);
+  // console.log(formData);
 
   ///////////
   const formSubmit = (e) => {
@@ -47,8 +47,7 @@ const Login = () => {
         setLoader(false);
       });
   };
-  {
-  }
+
   return (
     <div>
       {loader == true ? (

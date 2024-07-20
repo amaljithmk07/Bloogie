@@ -126,6 +126,8 @@
 }
 .home-article-card-sec:hover .home-article-card-img {
   filter: brightness(0.5);
+  /* border-top-left-radius: 20px; */
+  /* border-top-right-radius: 20px; */
 }
 .home-article-card-title {
   visibility: visible;

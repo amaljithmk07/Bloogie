@@ -7,6 +7,7 @@ const Loader = () => {
         <div className="loader-sub-body">
           <div className="loader-border"></div>
           <img src="/b.png" alt="" className="loader-img" />
+          <div className="loader-border"></div>
         </div>
       </div>
     </div>
