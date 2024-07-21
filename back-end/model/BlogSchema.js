@@ -21,14 +21,10 @@ const BlogSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  // time_stamp: {
-  //   type: String,
-  //   required: true,
-  // },
-
   rating: {
-    type: String,
+    type: Number,
     required: true,
+    default: 0,
   },
 });
 const Data = mongoose.model("blog_db", BlogSchema);

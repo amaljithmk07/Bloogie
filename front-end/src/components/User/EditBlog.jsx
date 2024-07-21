@@ -172,10 +172,10 @@ const EditBlog = () => {
                           {data.author}
                         </div>
                         <div className="edit-blog-content-data">
-                          {data.time_stamp}
+                          {data.content}
                         </div>
                         <div className="edit-blog-content-data">
-                          {data.content}
+                          Rating : {data.rating?.toString().slice(0, 3)}/5
                         </div>
                       </div>
                     </div>

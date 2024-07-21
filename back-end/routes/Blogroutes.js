@@ -3,6 +3,7 @@ const express = require("express");
 const blogroutes = express.Router();
 const Blog_DB = require("../model/BlogSchema");
 const Comment_DB = require("../model/CommentSchema");
+const Rating_DB = require("../model/RatingSchema");
 const Register_DB = require("../model/RegisterSchema");
 const CheckAuth = require("../middleware/CheckAuth");
 const multer = require("multer");
@@ -32,7 +33,9 @@ blogroutes.post(
         title: req.body.title,
         author: req.body.author,
         content: req.body.content,
-        time_stamp: req.body.time_stamp,
+        // rating: 0,
+        // rating_sum: 0,
+        // rating_count: 0,
       });
       const result = await Data.save();
       if (result) {
@@ -240,6 +243,41 @@ blogroutes.put("/edit-blog/:id", CheckAuth, async (req, res) => {
 
 blogroutes.get("/view-blog-in-detail/:id", CheckAuth, async (req, res) => {
   try {
+    const ratingCount = await Blog_DB.aggregate([
+      {
+        $lookup: {
+          from: "rating_dbs",
+          localField: "_id",
+          foreignField: "blog_id",
+          as: "results",
+        },
+      },
+      {
+        $match: {
+          _id: new mongoose.Types.ObjectId(req.params.id),
+        },
+      },
+      {
+        $group: {
+          _id: "$_id",
+          blog_id: {
+            $first: "$results.blog_id",
+          },
+          user_id: {
+            $first: "$results.user_id",
+          },
+          rating: {
+            $first: "$results.rating",
+          },
+        },
+      },
+    ]);
+    console.log(ratingCount[0].rating);
+    // let sum = 0;
+    // for (let i = 0; i < ratingCount[0].rating.length; i++) {
+    //   sum = sum + ratingCount[0].rating[i];
+    // }
+    // console.log(sum);
     const BlogwithComments = await Blog_DB.aggregate([
       {
         $lookup: {
@@ -275,6 +313,9 @@ blogroutes.get("/view-blog-in-detail/:id", CheckAuth, async (req, res) => {
           },
           rating: {
             $first: "$rating",
+          },
+          ratingCount: {
+            $first: ratingCount[0].rating.length,
           },
           login_id: {
             $first: "$login_id",
@@ -363,24 +404,92 @@ blogroutes.post("/comment-upload/:id", CheckAuth, async (req, res) => {
 ////Rating Adding
 
 blogroutes.post("/rating-add", CheckAuth, async (req, res) => {
-  console.log(req.body);
   try {
-    const Data = await Blog_DB.updateOne(
+    // const oldRating = await Blog_DB.findOne({
+    //   _id: req.body.id,
+    // });
+    // const newRatingCount = Number(oldRating.rating_count) + 1;
+    // const NewRatingSum = Number(oldRating.rating_sum) + req.body.number;
+    // const updatedRating = NewRatingSum / newRatingCount;
+
+    // const Data = await Blog_DB.updateOne(
+    //   {
+    //     _id: req.body.id,
+    //   },
+    //   {
+    //     $set: {
+    //       rating_sum: NewRatingSum,
+    //       rating_count: newRatingCount,
+    //       rating: updatedRating,
+    //     },
+    //   }
+    // );
+
+    // const user = await Blog_DB.findOne({
+    //   _id: req.body.id,
+    // });
+    const alreadyRated = await Rating_DB.findOne({
+      user_id: req.userData.userId,
+    });
+    if (!alreadyRated) {
+      const oldRating = await Rating_DB({
+        blog_id: req.body.id,
+        user_id: req.userData.userId,
+        rating: req.body.number,
+      });
+      const ratingSave = await oldRating.save();
+      if (!ratingSave) {
+        return res.status(400).json({
+          success: false,
+          error: true,
+          errorMessage: "rating not saved",
+        });
+      }
+    } else {
+      const rewriteRating = await Rating_DB.updateOne({
+        user_id: req.userData.userId,
+        $set: {
+          rating: req.body.number,
+        },
+      });
+    }
+
+    const Data = await Rating_DB.find({
+      blog_id: req.body.id,
+    });
+    let ratings = [];
+    for (let i = 0; i < Data.length; i++) {
+      ratings.push(Data[i].rating);
+    }
+
+    ///////
+
+    let sum = 0;
+
+    for (let i = 0; i < ratings.length; i++) {
+      sum += ratings[i];
+    }
+    const rating = sum / ratings.length;
+
+    const NewRating = await Blog_DB.updateOne(
       {
         _id: req.body.id,
       },
       {
         $set: {
-          rating: req.body.number,
+          rating: rating,
         },
       }
     );
-    Data.save();
-    if (Data) {
+    const user = await Blog_DB.findOne({
+      _id: req.body.id,
+    });
+    if (user) {
       return res.status(200).json({
         success: true,
         error: false,
-        data: Data,
+        data: user,
+        count: Data.length,
         message: "Rating added Successful",
       });
     } else

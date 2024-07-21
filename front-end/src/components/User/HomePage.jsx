@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./HomePage.css";
 import axios from "axios";
 import Loader from "../Loader/Loader";
@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 const HomePage = () => {
   const token = sessionStorage.getItem("token");
   const navigate = useNavigate();
+  const articleSection = useRef();
   ////Loader
   const [loader, setLoader] = useState(false);
 
@@ -30,6 +31,12 @@ const HomePage = () => {
         setLoader(false);
       });
   }, []);
+
+  const viewAriclesScroll = () => {
+    document
+      .getElementById("home-article-sec")
+      .scrollIntoView({ behavior: "smooth" });
+  };
   return (
     <div>
       {loader == true ? (
@@ -43,11 +50,15 @@ const HomePage = () => {
                 Your go-to for blogging and web creation tips, resources, and
                 inspiration. Build and grow your online presence with Bloogie!
               </div>
-              <button className="home-img-body-btn">View Articles</button>
+              <button className="home-img-body-btn" onClick={viewAriclesScroll}>
+                View Articles
+              </button>
             </div>
           </div>
 
-          <div className="home-article-title">Explore All Our Articles</div>
+          <div className="home-article-title" id="home-article-sec">
+            Explore All Our Articles
+          </div>
           <div className="home-article-body">
             {allBlogs.map((data) => (
               <div className="home-article-card-sec" key={data._id}>
@@ -70,7 +81,10 @@ const HomePage = () => {
                   <div className="home-article-card-content-data">
                     {data.title}
                   </div>
-                  <div className="home-article-card-content-data">Rating </div>
+                  <div className="home-article-card-content-data">
+                    Rating : 
+                    {/* {data.rating.toString().slice(0, 3)}/5 */}
+                  </div>
                 </div>
               </div>
             ))}

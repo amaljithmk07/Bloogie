@@ -19,7 +19,11 @@ const BlogPage = () => {
   };
 
   /////////
-
+  const [blogFormPhotoPreview, setBlogFormPhotoPreview] = useState();
+  const formImagePreview = (e) => {
+    setBlogFormPhotoPreview(URL.createObjectURL(e.target.files[0]));
+  };
+  ////////////
   const formDataImage = (e) => {
     const { name } = e.target;
     setBlogForm({ ...blogForm, [name]: e.target.files[0] });
@@ -73,55 +77,62 @@ const BlogPage = () => {
                 curiosity.
               </div>
             </div>
-            <form
-              action=""
-              className="blog-upload-form-sec"
-              encType="multipart/form-data"
-            >
-              <input
-                type="file"
-                id="image"
-                hidden
-                name="image"
-                onChange={formDataImage}
-              />{" "}
+          </div>
+          <form
+            action=""
+            className="blog-upload-form-sec"
+            encType="multipart/form-data"
+          >
+            <input
+              type="file"
+              id="image"
+              hidden
+              name="image"
+              onChange={(e) => {
+                formDataImage(e), formImagePreview(e);
+              }}
+            />
+            {blogFormPhotoPreview ? (
+              <img
+                src={blogFormPhotoPreview}
+                alt=""
+                className="blog-upload-form-upload-preview"
+              />
+            ) : (
               <label className="blog-upload-form-upload" htmlFor="image">
-                <img src="upload.png" alt="" className="blog-upload-form-upload-img" />
+                <img
+                  src="upload.png"
+                  alt=""
+                  className="blog-upload-form-upload-img"
+                />
                 Upload
               </label>
-              <input
-                type="text"
-                placeholder="Title"
-                className="blog-upload-form-data"
-                name="title"
-                onChange={formDataHandler}
-              />
-              <input
-                type="text"
-                placeholder="Content"
-                name="content"
-                className="blog-upload-form-data"
-                onChange={formDataHandler}
-              />
-              <input
-                type="text"
-                placeholder="Timestamp"
-                name="time_stamp"
-                className="blog-upload-form-data"
-                onChange={formDataHandler}
-              />
-              <input
-                type="text"
-                placeholder="Author"
-                name="author"
-                className="blog-upload-form-data"
-                onChange={formDataHandler}
-              />
-              <button className="blog-upload-form-btn" onClick={blogSubmit}>
-                SUBMIT
-              </button>
-            </form>
-          </div>
+            )}
+            <input
+              type="text"
+              placeholder="Title"
+              className="blog-upload-form-data"
+              name="title"
+              onChange={formDataHandler}
+            />
+            <textarea
+              type="text"
+              placeholder="Content"
+              name="content"
+              className="blog-upload-form-data"
+              onChange={formDataHandler}
+            />
+            <input
+              type="text"
+              placeholder="Author"
+              name="author"
+              className="blog-upload-form-data"
+              onChange={formDataHandler}
+            />
+            <button className="blog-upload-form-btn" onClick={blogSubmit}>
+              SUBMIT
+            </button>
+          </form>
         </div>
       )}
     </div>

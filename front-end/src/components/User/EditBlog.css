@@ -82,7 +82,7 @@
   margin: 0 15px;
   justify-content: space-around;
   align-items: center;
-  background-color: rgb(255, 255, 255);
+  /* background-color: rgb(175, 53, 53); */
   border: 1px solid rgb(174, 174, 174);
   position: relative;
 }
@@ -129,6 +129,7 @@
   height: 30px;
   width: 90%;
   border: 0;
+  overflow: hidden;
   outline: none;
   /* background-color: rgb(188, 84, 84); */
 }

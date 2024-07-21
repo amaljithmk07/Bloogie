@@ -11,7 +11,11 @@ const BlogView = () => {
   ////Loader
   const [loader, setLoader] = useState(false);
 
-  const [blog, setBlogs] = useState({ comment: [], user_name: [] });
+  const [blog, setBlogs] = useState({
+    comment: [],
+    user_name: [],
+    ratingCount: "",
+  });
   useEffect(() => {
     setLoader(true);
     axios
@@ -21,7 +25,7 @@ const BlogView = () => {
         },
       })
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setLoader(false);
         setBlogs(data.data.data[0]);
       })
@@ -30,12 +34,11 @@ const BlogView = () => {
         setLoader(false);
       });
   }, []);
-  console.log(blog);
+  // console.log(blog);
 
   ///////////////Comment Upload Section
 
   const [commentHandler, setCommentHandler] = useState({});
-  console.log(commentHandler);
 
   const commentUpload = (e) => {
     axios
@@ -68,6 +71,7 @@ const BlogView = () => {
   };
 
   //////////rating
+
   const [ratingstate, setRatingstate] = useState({
     1: false,
     2: false,
@@ -75,6 +79,9 @@ const BlogView = () => {
     4: false,
     5: false,
   });
+
+  ///////
+
   const addRating = (number) => {
     const newRatingState = { ...ratingstate };
     for (let i = 1; i <= 5; i++) {
@@ -82,6 +89,9 @@ const BlogView = () => {
     }
     setRatingstate(newRatingState);
   };
+
+  /////////
+
   const ratingCancel = (number) => {
     const newRatingState = { ...ratingstate };
     for (let i = 0; i >= number; i++) {
@@ -89,6 +99,8 @@ const BlogView = () => {
     }
     setRatingstate(newRatingState);
   };
+
+  //////////////////////
 
   const ratingSubmit = (number) => {
     axios
@@ -99,11 +111,21 @@ const BlogView = () => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-          // params: { id: { id }, number: { number } },
         }
       )
       .then((data) => {
         console.log(data);
+        setBlogs({
+          ...blog,
+          rating: data.data.data.rating,
+          ratingCount: data.data.count,
+        });
+        const newRatingState = { ...ratingstate };
+
+        for (let i = 1; i <= 5; i++) {
+          newRatingState[i] = i <= number;
+        }
+        setRatingstate(newRatingState);
       })
       .catch((err) => {
         console.log(err);
@@ -122,20 +144,20 @@ const BlogView = () => {
               className="blog-view-img"
             />
             <div className="blog-view-title-sec">
-              <div className="blog-view-title">{blog.title} title</div>
+              <div className="blog-view-title">{blog.title} </div>
               <div className="blog-view-title">by</div>
-              <div className="blog-view-title">
-                {blog.author}
-                Author
-              </div>
+              <div className="blog-view-title">{blog.author}</div>
             </div>
           </div>
 
           {/* ////// */}
           <div className="blog-view-content-sec">{blog.content}</div>
           {/* ///////// */}
-          <div className="blog-view-rating-sec">
-            Rating
+          <div
+            className="blog-view-rating-sec"
+            onClick={() => setRatingstate(false)}
+          >
+            Rating :
             <img
               src={
                 ratingstate[1] == true ? "/rating-filled.png" : "/rating.png"
@@ -186,7 +208,19 @@ const BlogView = () => {
               onClick={() => ratingSubmit(5)}
               onMouseLeave={() => ratingCancel(5)}
             />
-            {blog.rating}
+            <span style={{ fontSize: ".9rem", height: "20px" }}>
+              {blog.rating?.toString().slice(0, 3)} / 5
+            </span>
+            <span
+              style={{
+                fontSize: ".7rem",
+                fontWeight: "500",
+                height: "20px",
+                fontStyle: "italic",
+              }}
+            >
+              out of ( {blog.ratingCount} ) people
+            </span>
           </div>
 
           {/* /////////// */}
@@ -201,6 +235,13 @@ const BlogView = () => {
                   <div className="blog-view-comment">{data}</div>
                 </div>
               ))}
+              {blog.comment?.length == 0 ? (
+                <div className="blog-view-comment-body">
+                  <div className="blog-view-comment">No comments</div>
+                </div>
+              ) : (
+                ""
+              )}
             </div>
             {/* //////// */}
             <form className="blog-view-comments-upload">
