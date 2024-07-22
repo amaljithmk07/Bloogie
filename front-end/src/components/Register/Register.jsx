@@ -99,7 +99,7 @@ const Register = () => {
                   className="register-form-input"
                 />
                 <input
-                  type="passwoord"
+                  type="password"
                   name="password"
                   placeholder="Password"
                   className="register-form-input"

@@ -405,39 +405,19 @@ blogroutes.post("/comment-upload/:id", CheckAuth, async (req, res) => {
 
 blogroutes.post("/rating-add", CheckAuth, async (req, res) => {
   try {
-    // const oldRating = await Blog_DB.findOne({
-    //   _id: req.body.id,
-    // });
-    // const newRatingCount = Number(oldRating.rating_count) + 1;
-    // const NewRatingSum = Number(oldRating.rating_sum) + req.body.number;
-    // const updatedRating = NewRatingSum / newRatingCount;
-
-    // const Data = await Blog_DB.updateOne(
-    //   {
-    //     _id: req.body.id,
-    //   },
-    //   {
-    //     $set: {
-    //       rating_sum: NewRatingSum,
-    //       rating_count: newRatingCount,
-    //       rating: updatedRating,
-    //     },
-    //   }
-    // );
-
-    // const user = await Blog_DB.findOne({
-    //   _id: req.body.id,
-    // });
+    console.log("newRating", req.body.number);
     const alreadyRated = await Rating_DB.findOne({
       user_id: req.userData.userId,
+      blog_id: req.body.id,
     });
+    console.log("alreadyRated", alreadyRated);
     if (!alreadyRated) {
-      const oldRating = await Rating_DB({
-        blog_id: req.body.id,
+      const newRating = await Rating_DB({
         user_id: req.userData.userId,
+        blog_id: req.body.id,
         rating: req.body.number,
       });
-      const ratingSave = await oldRating.save();
+      const ratingSave = await newRating.save();
       if (!ratingSave) {
         return res.status(400).json({
           success: false,
@@ -446,29 +426,45 @@ blogroutes.post("/rating-add", CheckAuth, async (req, res) => {
         });
       }
     } else {
-      const rewriteRating = await Rating_DB.updateOne({
-        user_id: req.userData.userId,
-        $set: {
-          rating: req.body.number,
+      const rewriteRating = await Rating_DB.updateOne(
+        {
+          user_id: alreadyRated.user_id,
+          blog_id: alreadyRated.blog_id,
         },
-      });
+        {
+          $set: {
+            rating: req.body.number,
+          },
+        }
+      );
+      console.log("rewriteRating", rewriteRating);
+      if (!rewriteRating) {
+        return res.status(400).json({
+          success: false,
+          error: true,
+          errorMessage: "rewriting not worked",
+        });
+      }
     }
-
-    const Data = await Rating_DB.find({
+    //////All ratings of selected blog
+    const allRating = await Rating_DB.find({
       blog_id: req.body.id,
     });
+    console.log("Data", allRating);
+
+    /////
     let ratings = [];
-    for (let i = 0; i < Data.length; i++) {
-      ratings.push(Data[i].rating);
+    for (let i = 0; i < allRating.length; i++) {
+      ratings.push(allRating[i].rating);
     }
 
     ///////
-
     let sum = 0;
-
     for (let i = 0; i < ratings.length; i++) {
       sum += ratings[i];
     }
+
+    ///New rating
     const rating = sum / ratings.length;
 
     const NewRating = await Blog_DB.updateOne(
@@ -481,15 +477,24 @@ blogroutes.post("/rating-add", CheckAuth, async (req, res) => {
         },
       }
     );
-    const user = await Blog_DB.findOne({
+    if (!NewRating) {
+      return res.status(400).json({
+        success: false,
+        error: true,
+        errorMessage: "Failed Adding new Rating",
+      });
+    }
+
+    //////////Finding blog for passing Data
+    const Blog = await Blog_DB.findOne({
       _id: req.body.id,
     });
-    if (user) {
+    if (Blog) {
       return res.status(200).json({
         success: true,
         error: false,
-        data: user,
-        count: Data.length,
+        data: Blog,
+        count: allRating.length,
         message: "Rating added Successful",
       });
     } else

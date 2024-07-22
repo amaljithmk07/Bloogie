@@ -24,7 +24,7 @@ const Navbar = () => {
                 Explore
               </Link>
               <Link to={"/blog"} className="navbar-menu-data">
-                Blog
+                Upload
               </Link>
               <Link to={"/blog-edit"} className="navbar-menu-data">
                 Editor

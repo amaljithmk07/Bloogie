@@ -184,18 +184,21 @@ const EditBlog = () => {
               </div>
             ) : (
               ////////////Update section
+
               <div className="edit-blog-update-card-sec">
                 <img
-                  src="/back.png"
+                  src="/cross.png"
                   alt=""
-                  className="edit-blog-update-back-btn"
-                  onClick={() => window.location.reload()}
+                  className="edit-blog-update-close-btn"
+                  onClick={() => {
+                    setFormchanger(false);
+                  }}
                 />
-                {/* <img
+                <img
                   src={`/upload/${singleView.image}`}
                   alt=""
                   className="edit-blog-update-img"
-                /> */}
+                />
                 <input
                   className="edit-blog-update-data"
                   value={singleView.title}
@@ -210,19 +213,12 @@ const EditBlog = () => {
                   name="author"
                   placeholder="Author"
                 />
-                <input
+                <textarea
                   className="edit-blog-update-data"
                   value={singleView.content}
                   onChange={updateFieldHandler}
                   name="content"
                   placeholder="Content"
-                />
-                <input
-                  className="edit-blog-update-data"
-                  value={singleView.time_stamp}
-                  onChange={updateFieldHandler}
-                  name="time_stamp"
-                  placeholder="Timestamp"
                 />
                 <button
                   className="edit-blog-update-btn"

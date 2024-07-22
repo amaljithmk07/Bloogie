@@ -82,8 +82,7 @@ const HomePage = () => {
                     {data.title}
                   </div>
                   <div className="home-article-card-content-data">
-                    Rating : 
-                    {/* {data.rating.toString().slice(0, 3)}/5 */}
+                    Rating :{data.rating.toString().slice(0, 3)}/5
                   </div>
                 </div>
               </div>

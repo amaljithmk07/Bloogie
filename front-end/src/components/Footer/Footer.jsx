@@ -23,7 +23,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="footer-footer">
-        <p>&copy; 2024 Bloogie. All rights reserved.</p>
+        <p>&copy; 2024 Bloogie. All rights Reserved.</p>
       </div>
     </div>
     </div>
