@@ -170,6 +170,10 @@ blogroutes.put("/delete-one-blog/:id", CheckAuth, async (req, res) => {
       _id: req.params.id,
       login_id: req.userData.userId,
     });
+
+    const Ratings = await Rating_DB.deleteMany({
+      blog_id: req.params.id,
+    });
     if (Data) {
       return res.status(200).json({
         success: true,
@@ -198,47 +202,53 @@ blogroutes.put("/delete-one-blog/:id", CheckAuth, async (req, res) => {
 
 //////Updating blog
 
-blogroutes.put("/edit-blog/:id", CheckAuth, async (req, res) => {
-  try {
-    const Data = await Blog_DB.updateOne(
-      {
-        _id: req.params.id,
-        login_id: req.userData.userId,
-      },
-      {
-        $set: {
-          title: req.body.title,
-          author: req.body.author,
-          content: req.body.content,
-          time_stamp: req.body.time_stamp,
+blogroutes.put(
+  "/edit-blog/:id",
+  upload.single("image"),
+  CheckAuth,
+  async (req, res) => {
+    try {
+      const Data = await Blog_DB.updateOne(
+        {
+          _id: req.params.id,
+          login_id: req.userData.userId,
         },
-      }
-    );
-    if (Data) {
-      return res.status(200).json({
-        success: true,
-        error: false,
-        data: Data,
-        message: "Blog Updated successful",
-      });
-    } else
-      (err) => {
-        return res.status(400).json({
-          success: false,
-          error: true,
-          message: " failed",
-          errorMessage: err.message,
+        {
+          $set: {
+            // image: req.body.image,
+            image: req.file.filename,
+            title: req.body.title,
+            author: req.body.author,
+            content: req.body.content,
+          },
+        }
+      );
+      if (Data) {
+        return res.status(200).json({
+          success: true,
+          error: false,
+          data: Data,
+          message: "Blog Updated successful",
         });
-      };
-  } catch (err) {
-    return res.status(500).json({
-      success: false,
-      error: true,
-      message: "Network error",
-      errorMessage: err.message,
-    });
+      } else
+        (err) => {
+          return res.status(400).json({
+            success: false,
+            error: true,
+            message: " failed",
+            errorMessage: err.message,
+          });
+        };
+    } catch (err) {
+      return res.status(500).json({
+        success: false,
+        error: true,
+        message: "Network error",
+        errorMessage: err.message,
+      });
+    }
   }
-});
+);
 //////view seperate blog in detail
 
 blogroutes.get("/view-blog-in-detail/:id", CheckAuth, async (req, res) => {

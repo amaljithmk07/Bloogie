@@ -130,7 +130,7 @@
   flex-direction: column;
   gap: 20px;
   border-radius: 20px;
-  background-color: aliceblue;
+  background-color: rgb(157, 174, 188);
   position: relative;
 }
 .edit-blog-update-close-btn {
@@ -146,8 +146,25 @@
   min-height: 50px;
   max-height: 150px;
   max-width: 70%;
-  min-width: 50%;
+  min-width: 10%;
   /* background-color: red; */
+}
+.edit-blog-upload {
+  height: 37px;
+  width: 130px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: white;
+  background-color: rgb(32, 16, 71);
+}
+.edit-blog-upload-img {
+  height: 25px;
+  width: auto;
 }
 .edit-blog-update-data {
   height: 40px;
@@ -157,7 +174,8 @@
   border: 0;
   /* background-color: red; */
 }
-.edit-blog-update-data:nth-child(5) {
+/* .edit-blog-update-data:nth-child(5) { */
+.edit-blog-update-data:nth-child(6) {
   font-family: sans-serif;
   min-height: 60px;
   max-width: 75%;

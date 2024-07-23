@@ -36,68 +36,6 @@ const EditBlog = () => {
 
   console.log(allBlogs);
 
-  /////State for viewing selected blog
-  const [singleView, setSingleView] = useState({
-    title: "",
-    author: "",
-    content: "",
-    time_stamp: "",
-  });
-
-  /////form changer
-  const [formChanger, setFormchanger] = useState(false);
-
-  /////when clicking the selected blog view seperated
-  const editHandler = (id) => {
-    setLoader(true);
-    console.log(id);
-    axios
-      .get(`${BASE_URI}/api/blog/view-one-blog/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((data) => {
-        console.log(data);
-        setSingleView(data.data.data);
-        setFormchanger(true);
-        setLoader(false);
-      })
-      .catch((err) => {
-        setLoader(false);
-        console.log(err);
-      });
-  };
-  console.log(singleView);
-
-  //////////Update form Field Handler
-
-  const updateFieldHandler = (e) => {
-    const { name, value } = e.target;
-    setSingleView({ ...singleView, [name]: value });
-  };
-
-  ///Update form Submit
-  const updateFieldSubmit = (id) => {
-    setLoader(true);
-
-    axios
-      .put(`${BASE_URI}/api/blog/edit-blog/${id}`, singleView, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((data) => {
-        console.log(data);
-        setLoader(false);
-        window.location.reload();
-      })
-      .catch((err) => {
-        setLoader(false);
-        console.log(err);
-      });
-  };
-
   ///Delete form Submit
   const deleteHandler = (id) => {
     setLoader(true);
@@ -125,6 +63,93 @@ const EditBlog = () => {
         console.log(err);
       });
   };
+
+  /////form changer
+  const [formChanger, setFormchanger] = useState(false);
+
+  ///////////////////////////////////////////////////////////////
+
+  /////State for viewing selected blog
+  const [singleView, setSingleView] = useState({
+    image: "",
+    title: "",
+    author: "",
+    content: "",
+  });
+
+  //////////Update Image Preview Handler
+
+  const [updatePreview, setUpdatePreview] = useState();
+  const updateImagePreviewHandler = (e) => {
+    const { name } = e.target;
+    setUpdatePreview(URL.createObjectURL(e.target.files[0]));
+  };
+  console.log(updatePreview);
+
+  /////when clicking the selected blog view seperated
+  const editHandler = (id) => {
+    setLoader(true);
+    console.log(id);
+    axios
+      .get(`${BASE_URI}/api/blog/view-one-blog/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((data) => {
+        console.log(data);
+        setSingleView(data.data.data);
+        setFormchanger(true);
+        setLoader(false);
+        setUpdatePreview("");
+      })
+      .catch((err) => {
+        setLoader(false);
+        console.log(err);
+      });
+  };
+  console.log(singleView);
+
+  //////////Update form Field Handler
+
+  const updateFieldHandler = (e) => {
+    const { name, value } = e.target;
+    setSingleView({ ...singleView, [name]: value });
+  };
+  //////////Update Image Field Handler
+
+  const updateImageHandler = (e) => {
+    const { name } = e.target;
+    setSingleView({ ...singleView, [name]: e.target.files[0] });
+  };
+
+  ///Update form Submit
+  const updateFieldSubmit = (id) => {
+    setLoader(true);
+    const formData = new FormData();
+    formData.append("image", singleView.image);
+    formData.append("title", singleView.title);
+    formData.append("author", singleView.author);
+    formData.append("content", singleView.content);
+
+    axios
+      // .put(`${BASE_URI}/api/blog/edit-blog/${id}`, singleView, {
+      .put(`${BASE_URI}/api/blog/edit-blog/${id}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((data) => {
+        console.log(data);
+        setLoader(false);
+        window.location.reload();
+      })
+      .catch((err) => {
+        setLoader(false);
+        console.log(err);
+      });
+  };
+
   return (
     <div>
       {loader == true ? (
@@ -195,10 +220,33 @@ const EditBlog = () => {
                   }}
                 />
                 <img
-                  src={`/upload/${singleView.image}`}
+                  src={
+                    updatePreview
+                      ? updatePreview
+                      : `/upload/${singleView.image}`
+                  }
                   alt=""
                   className="edit-blog-update-img"
                 />
+                <div>
+                  <input
+                    type="file"
+                    name="image"
+                    id="image"
+                    hidden
+                    onChange={(e) => {
+                      updateImageHandler(e), updateImagePreviewHandler(e);
+                    }}
+                  />
+                  <label className="edit-blog-upload" htmlFor="image">
+                    <img
+                      src="upload.png"
+                      alt=""
+                      className="edit-blog-upload-img"
+                    />
+                    Upload
+                  </label>
+                </div>
                 <input
                   className="edit-blog-update-data"
                   value={singleView.title}
